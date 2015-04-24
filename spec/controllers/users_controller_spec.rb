@@ -1,23 +1,22 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe UsersController do
-
-  before do
-  end
+describe UsersController, type: :controller do
 
   describe "GET 'edit'" do
-    login_user
-    it "returns http success" do
+    it 'returns http success' do
+      sign_in FactoryGirl.create(:alice)
+
       get :edit
-      response.should be_success
+      expect(response).to be_success
     end
   end
 
   describe "GET 'update'" do
-    login_user
-    it "returns http success" do
+    it 'returns http success' do
+      sign_in FactoryGirl.create(:alice)
+
       patch :update, user: { nickname: 'bob' }
-      response.should redirect_to('/user/edit')
+      expect(response).to redirect_to('/user/edit')
     end
   end
 

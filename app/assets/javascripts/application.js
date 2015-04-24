@@ -14,9 +14,13 @@
 // require jquery
 //= require jquery_ujs
 // require turbolinks
+//= require gritter
 //= require ./lib/jquery.ui.widget
 //= require_tree ./lib
+//= require_tree ./modules
 //= require_tree .
 
 _.mixin(_.string.exports());
 
+// $('[data-toggle="tooltip"]').tooltip();
+// $('[data-toggle="popover"]').popover();

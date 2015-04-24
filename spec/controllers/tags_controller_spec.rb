@@ -1,13 +1,23 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe TagsController do
+describe TagsController, type: :controller do
 
-  describe "GET 'show'" do
-    pending '...'
+  let(:tag) { FactoryGirl.create(:tag_ruby) }
+
+  describe "GET 'show' without login" do
+    it 'returns http redirect' do
+      get 'show', name: tag.name
+      expect(response).to redirect_to('/')
+    end
   end
 
-  describe "GET 'events'" do
-    pending '...'
+  describe "GET 'show' with login" do
+    it 'returns http success' do
+      sign_in FactoryGirl.create(:alice)
+
+      get 'show', name: tag.name
+      expect(response).to be_success
+    end
   end
 
 end

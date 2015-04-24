@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4'
+gem 'rails', '~> 4.1'
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', github: 'rails/sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
@@ -19,9 +19,6 @@ gem 'jquery-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
-# Use jquery as the JavaScript library
-# gem 'jquery-rails'
-
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 
@@ -29,6 +26,8 @@ gem 'therubyracer', platforms: :ruby
 gem 'jbuilder'
 
 gem 'i18n_generators'
+
+gem 'unicorn'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -69,10 +68,8 @@ group :development do
   gem 'pry-rails'
 
   # profiler
-  # gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler'
 
-  # rubocop
-  gem 'rubocop'
   gem 'guard-rspec', require: false
   gem 'guard-rubocop'
   # gem 'guard-spring'
@@ -83,6 +80,9 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano3-unicorn'
+
+  gem 'travis'
 end
 
 group :development, :test do
@@ -90,6 +90,16 @@ group :development, :test do
 
   # gem 'database_cleaner'
   gem 'database_rewinder'
+
+  gem 'teaspoon'
+  gem 'guard-teaspoon'
+  gem 'byebug'
+
+  gem 'dotenv-rails'
+
+  gem 'rubocop'
+
+  gem 'quiet_assets'
 end
 
 group :test do
@@ -126,10 +136,37 @@ gem 'draper', '~> 1.3'
 # ActiveRecord versioning
 gem 'paper_trail', '~> 3.0.0'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '1.39.0'
 
 gem 'newrelic_rpm'
 
 gem 'breadcrumble'
 
 gem 'slim'
+
+gem 'annotate', '>=2.6.0'
+
+gem 'kaminari', github: 'amatsuda/kaminari'
+
+gem 'jwt', '0.1.11'
+
+# Optional
+
+# For notifing to HipChat
+gem 'hipchat'
+
+# For PDF upload
+gem 'rmagick', require: 'RMagick'
+
+# for heroku
+gem 'rails_12factor', group: :production
+# gem 'mysql'
+
+# for IP restriction
+gem 'rack-contrib', require: 'rack/contrib'
+
+gem 'meta-tags'
+
+# Growl-like Notification
+# https://github.com/RobinBrouwer/gritter
+gem 'gritter', '1.1.0'

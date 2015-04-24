@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140411073950) do
+ActiveRecord::Schema.define(version: 20140719145016) do
 
   create_table "comments", force: true do |t|
     t.integer  "author_id"
@@ -24,19 +24,27 @@ ActiveRecord::Schema.define(version: 20140411073950) do
   add_index "comments", ["author_id", "updated_at"], name: "index_comments_on_author_id_and_updated_at", using: :btree
   add_index "comments", ["post_id", "updated_at"], name: "index_comments_on_post_id_and_updated_at", using: :btree
 
-  create_table "favorites", force: true do |t|
-    t.integer  "post_id"
-    t.integer  "user_id"
+  create_table "footprints", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "post_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "likes", force: true do |t|
-    t.integer  "post_id"
+  add_index "footprints", ["post_id"], name: "index_footprints_on_post_id", using: :btree
+  add_index "footprints", ["user_id", "post_id"], name: "index_footprints_on_user_id_and_post_id", using: :btree
+
+  create_table "notifications", force: true do |t|
     t.integer  "user_id"
+    t.datetime "read_at"
+    t.boolean  "is_read",     default: false, null: false
+    t.string   "detail_path"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "notifications", ["user_id", "is_read", "read_at"], name: "index_notifications_on_user_id_and_is_read_and_read_at", using: :btree
 
   create_table "post_tags", force: true do |t|
     t.integer  "post_id",    null: false
@@ -66,6 +74,7 @@ ActiveRecord::Schema.define(version: 20140411073950) do
     t.datetime "updated_at"
     t.string   "ancestry"
     t.text     "body"
+    t.integer  "posts_count", default: 0, null: false
   end
 
   add_index "tags", ["ancestry"], name: "index_tags_on_ancestry", using: :btree
@@ -91,6 +100,20 @@ ActiveRecord::Schema.define(version: 20140411073950) do
     t.string   "nickname",                default: "", null: false
   end
 
+  create_table "favorites", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "likes", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["nickname"], name: "index_users_on_nickname", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
@@ -105,5 +128,16 @@ ActiveRecord::Schema.define(version: 20140411073950) do
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "watches", force: true do |t|
+    t.integer  "watcher_id",     null: false
+    t.string   "watchable_type", null: false
+    t.integer  "watchable_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "watches", ["watchable_type", "watchable_id"], name: "index_watches_on_watchable_type_and_watchable_id", using: :btree
+  add_index "watches", ["watcher_id", "watchable_type", "watchable_id"], name: "index_watches_on_watcher_id_and_watchable_type_and_watchable_id", unique: true, using: :btree
 
 end

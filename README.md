@@ -11,8 +11,7 @@ A simple markdown-based blog & wiki system for team.
 
 # Supported versions
 
-- Ruby 2.0.0+
-- Rails 4.0.0+
+- Ruby 2.1.4
 
 # How to install and use.
 
@@ -36,17 +35,12 @@ and get
   - `http://localhost:3000` in [Authorized Javascript origins]
   - `http://localhost:3000/users/auth/google_oauth2/callback` in [Authorized redirect URI]
 5. Get [Client ID] and [Client secret]
+6. Write your Client ID & Secret in config/settings/yml
+7. Input form
+  -`rendevous` in [Project name] in Consent screen
 
 
-## Create and edit config files.
-
-```
-$ cp config/database.yml.example config/database.yml
-$ vim config/database.yml
-
-$ cp config/settings.yml.example config/settings.yml
-$ vim config/settings.yml
-```
+## Dotenv
 
 
 ## Setup DB
@@ -57,6 +51,14 @@ $ (bundle exec) rake db:seed
 ```
 And have fun with your team !
 
+
+# Optional features
+
+## PDF uploading
+
+```
+brew install imagemagick ghostscript
+```
 
 
 

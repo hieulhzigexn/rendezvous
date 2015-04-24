@@ -1,12 +1,20 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe StockController do
+describe StockController, type: :controller do
 
-  describe "GET 'show'" do
-    login_user
-    it "returns http success" do
+  describe "GET 'show' without login" do
+    it 'returns http redirect' do
       get 'show'
-      response.should be_success
+      expect(response).to redirect_to('/')
+    end
+  end
+
+  describe "GET 'show' with login" do
+    it 'returns http success' do
+      sign_in FactoryGirl.create(:alice)
+
+      get 'show'
+      expect(response).to be_success
     end
   end
 

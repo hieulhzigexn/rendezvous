@@ -1,6 +1,4 @@
 class SearchController < ApplicationController
-  before_action :require_login
-
   def show
     if params[:q].present?
       scope = Post.search(params[:q])
@@ -9,6 +7,6 @@ class SearchController < ApplicationController
     end
 
     @count = scope.count
-    @posts = scope.limit(100).decorate
+    @posts = scope.page(params[:page]).decorate
   end
 end

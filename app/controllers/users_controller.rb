@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to edit_user_path, flash: { notice: 'Post was successfully updated.' } }
+        gflash success: 'Post was successfully updated.'
+        format.html { redirect_to edit_user_path }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -18,7 +19,6 @@ class UsersController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = current_user
   end

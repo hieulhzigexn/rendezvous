@@ -1,4 +1,16 @@
-require 'spec_helper'
+# == Schema Information
+#
+# Table name: comments
+#
+#  id         :integer          not null, primary key
+#  author_id  :integer
+#  post_id    :integer
+#  body       :text
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+require 'rails_helper'
 
 describe Comment do
   describe 'validations' do
